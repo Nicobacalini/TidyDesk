@@ -76,7 +76,7 @@ Una vez implementado `v3`, realicé una auditoría de concurrencia, microarquite
 | # | Componente | Cómo estaba antes (`v2` / primera `v3`) | Qué cambié en la versión final y dónde se explica |
 | :-: | :--- | :--- | :--- |
 | 1 | **`HiloExploradorBase.run()`** | Si un hilo moría por `RuntimeException \| Error`, salía sin avisar y colgaba `join()`. | Captura y llama a `supervisor.abortar()` ([Ver estrategia Fail-Fast en Doc 03](03_decisiones_de_opti_SO_cache_Concurrencia.md#d-estrategia-de-manejo-de-errores-precondición-vs-fail-soft-vs-fail-fast)). |
-| 2 | **`robarCarpeta()` (Cerrojo)** | El método `robarCarpeta()` entero era `synchronized`. | Robo en paralelo puro con CAS; `monitor` acotado solo a dormir/despertar ([Ver Doc 01](01_arquitectura_y_patrones.md#decisiones-de-encapsulamiento-inmutabilidad-y-sincronización-en-las-clases)). |
+| 2 | **`robarCarpeta()` (Cerrojo)** | El método `robarCarpeta()` entero era `synchronized`. | Robo concurrente; `monitor` acotado solo a dormir/despertar ([Ver Doc 01](01_arquitectura_y_patrones.md#decisiones-de-encapsulamiento-inmutabilidad-y-sincronización-en-las-clases)). |
 | 3 | **Lectura de disco y tipos** | Detectado al analizar `v2`: usaba `File.listFiles()` (3 *syscalls* y arreglo `File[]`) o conversiones `toPath()`/`toFile()`. | Unificación a `Path`, `DirectoryStream` $\mathcal{O}(1)$ y `readAttributes` (1 *syscall*) ([Ver NIO.2 en Doc 03](03_decisiones_de_opti_SO_cache_Concurrencia.md#c-de-filelistfiles-a-directorystreampath-menos-syscalls-streaming-o1-y-directoryiteratorexception)). |
 
 ---
