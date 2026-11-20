@@ -70,7 +70,7 @@ TidyDesk-main/
 
 * **Requisitos**: **Java JDK 16 o superior** (utiliza `record` y Java NIO.2). Sin dependencias externas.
 
-### En Linux, macOS o Windows (Git Bash / WSL):
+### En Linux:
 
 ```bash
 # 1. Crear el directorio de salida y compilar todos los paquetes
