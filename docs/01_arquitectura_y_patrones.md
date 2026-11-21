@@ -50,7 +50,7 @@ Siguiendo el principio de diseño de Alexander Shvets (*Dive Into Design Pattern
 
 ### D. El Patrón Blackboard (Tablón Compartido) — *Arquitectura de Sistemas Concurrentes*
 
-* **Inspiración y concepto**: Tomé esta idea a partir de la arquitectura donde múltiples agentes colaboran a través de una pizarra compartida (ver en [este análisis de sistemas multiagente](https://youtu.be/ll6KJO8siL8?t=419)). Lo relacioné con que múltiples trabajadores independientes leen o registran sus avances en un espacio común desacoplado.
+* **Inspiración y concepto**: Tomé esta idea a partir de la arquitectura donde múltiples agentes colaboran a través de una pizarra compartida (ver en [este análisis de sistemas multiagente](https://youtu.be/FX9jOY8VJ18?t=308&si=Dwp91sYMyETxC_FW)). Lo relacioné con que múltiples trabajadores independientes leen o registran sus avances en un espacio común desacoplado.
 * **Aplicación en TidyDesk (`TableroBusqueda`)**:
   * La clase `TableroBusqueda` (inyectada por constructor en cada `HiloTrabajadorBuscador` como referencia compartida en el Heap, similar a un `Arc<T>` en Rust o `std::shared_ptr<T>` en C++ pero gestionada por el GC) actúa como tablero central.
   * Los hilos trabajadores no se envían mensajes entre sí cuando encuentran un archivo; todos tienen una referencia al mismo `TableroBusqueda` donde anotan sus descubrimientos encolando la ruta hallada en una `ConcurrentLinkedQueue<String>` (`rutasEncontradas`).
